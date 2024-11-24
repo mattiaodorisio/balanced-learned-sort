@@ -26,9 +26,14 @@
 *.a
 *.lib
 
-# Data file
+# Result files
 results/*
-data/*
+
+# Ignore everything in data except subdirectories and script files
+data/**
+!data/**/
+!data/**/*.sh
+!data/**/*.py
 
 # Executables
 *.exe

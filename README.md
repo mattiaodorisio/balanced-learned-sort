@@ -6,27 +6,26 @@ Here's the abstract:
 > Abstract
 
 ## Dependencies
-`cmake` to build the project
-`python` and `numpy` to download/prepare the datasets and reproduce the experiments
+`cmake` to build the project, `python` and `numpy` to download/prepare the real-world datasets to reproduce the experiments
 
 ## Usage
 The reproduce the experiments, clone this repository and its dependencies
 
 ```bash
-git clone --recurse-submodules https://github.com/mattiaodorisio/balanced-learned-sort
+git clone https://github.com/mattiaodorisio/balanced-learned-sort
 cd balanced-learned-sort
+git submodule update --init
 mkdir build && cd build
 cmake ..
 make -j 8
-./run_synth.sh
+cd ..
+./scripts/run_synth.sh
 ```
 
 The reproduce the experiments on real datasets you need also to download them
 ```bash
-cd data
-./download.sh
-cd ..
-./run_reals.sh
+./scripts/download.sh
+./scripts/run_reals.sh
 ```
 
 If instead you want to use the BLS in your project, add it as submodule:
