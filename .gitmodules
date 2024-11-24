@@ -1,0 +1,12 @@
+[submodule "extern/ska_sort"]
+	path = extern/ska_sort
+	url = https://github.com/skarupke/ska_sort.git
+[submodule "extern/learned-sort"]
+	path = extern/learned-sort
+	url = https://github.com/learnedsystems/learned-sort.git
+[submodule "extern/pdqsort"]
+	path = extern/pdqsort
+	url = https://github.com/orlp/pdqsort
+[submodule "extern/ips4o"]
+	path = extern/ips4o
+	url = https://github.com/ips4o/ips4o.git
