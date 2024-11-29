@@ -1,9 +1,8 @@
 /*
 This functions compute the optimal balanced P partitions for an array of weights.
 It's inspired from:
-https://cs.stackexchange.com/questions/125821/how-can-i-improve-my-algorithm-for-finding-optimally-balanced-p-way-partitioning
-and the related python code:
-https://replit.com/@Apass_Jack/optimallybalancedpartitioncs125821#main.py
+this paper: https://dl.acm.org/doi/10.1145/2755573.2755595
+and this post: https://cs.stackexchange.com/questions/125821/how-can-i-improve-my-algorithm-for-finding-optimally-balanced-p-way-partitioning
 */
 
 #pragma once

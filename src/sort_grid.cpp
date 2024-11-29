@@ -8,18 +8,18 @@
 #include "utils.h"
 #include "distr.h"
 
-#include "bls.h"
+#include "bls/bls.h"
 
 #if defined ULS
-#include "indexes/linear.h"
+#include "bls/indexes/linear.h"
 
 #elif defined BLS
-#include "indexes/linear.h"
-#include "indexes/linear_balanced.h"
+#include "bls/indexes/linear.h"
+#include "bls/indexes/linear_balanced.h"
 
 #elif defined LS21
-#include "indexes/linear.h"
-#include "indexes/my_rmi.h"
+#include "bls/indexes/linear.h"
+#include "bls/indexes/new_rmi.h"
 
 #else
 #error Unspecified learned algo
@@ -132,34 +132,34 @@ int main(int argc, char ** argv) {
     for (int d = 0; d < distributions.size(); ++d) {
 
 #if defined LS21
-      benchmark(str_r + "rmi_" + std::to_string(300), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   300>(v.begin(), v.end());});
-      benchmark(str_r + "rmi_" + std::to_string(400), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   400>(v.begin(), v.end());});
-      benchmark(str_r + "rmi_" + std::to_string(500), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   500>(v.begin(), v.end());});
-      benchmark(str_r + "rmi_" + std::to_string(600), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   600>(v.begin(), v.end());});
-      benchmark(str_r + "rmi_" + std::to_string(700), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   700>(v.begin(), v.end());});
-      benchmark(str_r + "rmi_" + std::to_string(800), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   800>(v.begin(), v.end());});
-      benchmark(str_r + "rmi_" + std::to_string(900), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   900>(v.begin(), v.end());});
-      benchmark(str_r + "rmi_" + std::to_string(1000), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(300), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   300>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(400), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   400>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(500), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   500>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(600), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   600>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(700), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   700>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(800), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   800>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(900), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,   900>(v.begin(), v.end());});
+      benchmark(str_r + "rmi_" + std::to_string(1000), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(v.begin(), v.end());});
       
 #elif defined BLS
-      benchmark(str_r + "lbm_" + std::to_string( 300), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  300>(v.begin(), v.end());});
-      benchmark(str_r + "lbm_" + std::to_string( 400), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  400>(v.begin(), v.end());});
-      benchmark(str_r + "lbm_" + std::to_string( 500), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  500>(v.begin(), v.end());});
-      benchmark(str_r + "lbm_" + std::to_string( 600), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  600>(v.begin(), v.end());});
-      benchmark(str_r + "lbm_" + std::to_string( 700), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  700>(v.begin(), v.end());});
-      benchmark(str_r + "lbm_" + std::to_string( 800), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  800>(v.begin(), v.end());});
-      benchmark(str_r + "lbm_" + std::to_string( 900), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  900>(v.begin(), v.end());});
-      benchmark(str_r + "lbm_" + std::to_string(1000), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string( 300), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  300>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string( 400), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  400>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string( 500), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  500>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string( 600), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  600>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string( 700), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  700>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string( 800), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  800>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string( 900), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  900>(v.begin(), v.end());});
+      benchmark(str_r + "lbm_" + std::to_string(1000), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(v.begin(), v.end());});
       
 #elif defined ULS
-      benchmark(str_r + "linear_" + std::to_string( 300), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  300>(v.begin(), v.end());});
-      benchmark(str_r + "linear_" + std::to_string( 400), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  400>(v.begin(), v.end());});
-      benchmark(str_r + "linear_" + std::to_string( 500), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  500>(v.begin(), v.end());});
-      benchmark(str_r + "linear_" + std::to_string( 600), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  600>(v.begin(), v.end());});
-      benchmark(str_r + "linear_" + std::to_string( 700), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  700>(v.begin(), v.end());});
-      benchmark(str_r + "linear_" + std::to_string( 800), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  800>(v.begin(), v.end());});
-      benchmark(str_r + "linear_" + std::to_string( 900), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  900>(v.begin(), v.end());});
-      benchmark(str_r + "linear_" + std::to_string(1000), size, distributions[d], [](std::vector<data_t> && v) {learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string( 300), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  300>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string( 400), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  400>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string( 500), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  500>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string( 600), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  600>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string( 700), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  700>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string( 800), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  800>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string( 900), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>,  900>(v.begin(), v.end());});
+      benchmark(str_r + "linear_" + std::to_string(1000), size, distributions[d], [](std::vector<data_t> && v) {ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(v.begin(), v.end());});
 
 #endif
 

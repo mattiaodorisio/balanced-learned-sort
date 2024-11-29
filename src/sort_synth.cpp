@@ -11,18 +11,18 @@
 //#define SORT_CHECKS
 
 #if defined ULS600 || defined ULS1000
-#include "bls.h"
-#include "indexes/linear.h"
+#include "bls/bls.h"
+#include "bls/indexes/linear.h"
 
 #elif defined BLS
-#include "bls.h"
-#include "indexes/linear.h"
-#include "indexes/linear_balanced.h"
+#include "bls/bls.h"
+#include "bls/indexes/linear.h"
+#include "bls/indexes/linear_balanced.h"
 
 #elif defined LS21
-#include "bls.h"
-#include "indexes/linear.h"
-#include "indexes/my_rmi.h"
+#include "bls/bls.h"
+#include "bls/indexes/linear.h"
+#include "bls/indexes/new_rmi.h"
 
 #elif defined IPS
 #include "ips4o.hpp"
@@ -177,11 +177,11 @@ int main(int argc, char ** argv) {
     std::string str_r = std::to_string(round) + ",";
     for (int d = 0; d < distributions.size(); ++d) {
 #if defined ULS1000
-      benchmark(str_r + "ULS1000", size, distributions[d], [](auto first, auto last) { learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(first, last); });
+      benchmark(str_r + "ULS1000", size, distributions[d], [](auto first, auto last) { ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000>(first, last); });
 #elif defined ULS600
-      benchmark(str_r + "ULS600", size, distributions[d], [](auto first, auto last) { learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 600>(first, last); });
+      benchmark(str_r + "ULS600", size, distributions[d], [](auto first, auto last) { ls_framework::sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 600>(first, last); });
 #elif defined BLS
-      benchmark(str_r + "BLS", size, distributions[d], [](auto first, auto last) { learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 600>(first, last); });
+      benchmark(str_r + "BLS", size, distributions[d], [](auto first, auto last) { ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 600>(first, last); });
 #elif defined IPS
       benchmark(str_r + "IPS4O", size, distributions[d], [](auto first, auto last) { ips4o::sort(first, last); });
 #elif defined STDSORT
@@ -191,7 +191,7 @@ int main(int argc, char ** argv) {
 #elif defined LS20
       benchmark(str_r + "LearnedSort_2_0", size, distributions[d], [](auto first, auto last) { learned_sort::sort(first, last); });
 #elif defined LS21
-      benchmark(str_r + "LearnedSort_2_1", size, distributions[d], [](auto first, auto last) { learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 500>(first, last); });
+      benchmark(str_r + "LearnedSort_2_1", size, distributions[d], [](auto first, auto last) { ls_framework::sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 500>(first, last); });
 #elif defined RS
       benchmark(str_r + "RadixSort", size, distributions[d], [](auto first, auto last) { radix_sort(first, last); });
 #elif defined PDQ

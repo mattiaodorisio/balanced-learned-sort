@@ -11,18 +11,18 @@
 #include "utils.h"
 
 #if defined ULS600 || defined ULS1000
-#include "bls.h"
-#include "indexes/linear.h"
+#include "bls/bls.h"
+#include "bls/indexes/linear.h"
 
 #elif defined BLS
-#include "bls.h"
-#include "indexes/linear.h"
-#include "indexes/linear_balanced.h"
+#include "bls/bls.h"
+#include "bls/indexes/linear.h"
+#include "bls/indexes/linear_balanced.h"
 
 #elif defined LS21
-#include "bls.h"
-#include "indexes/linear.h"
-#include "indexes/my_rmi.h"
+#include "bls/bls.h"
+#include "bls/indexes/linear.h"
+#include "bls/indexes/new_rmi.h"
 
 #elif defined IPS
 #include "ips4o.hpp"
@@ -191,13 +191,13 @@ int main(int argc, char ** argv) {
 #elif defined LS20 
       benchmark<uint64_t>(str_r + "LearnedSort_2_0", i, [](std::vector<uint64_t> && v) { learned_sort::sort(v.begin(), v.end()); });
 #elif defined ULS1000
-      benchmark<uint64_t>(str_r + "ULS1000", i, [](std::vector<uint64_t> && v) { learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 1000>(v.begin(), v.end()); });
+      benchmark<uint64_t>(str_r + "ULS1000", i, [](std::vector<uint64_t> && v) { ls_framework::sort<indexes::MinMaxIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 1000>(v.begin(), v.end()); });
 #elif defined ULS600
-      benchmark<uint64_t>(str_r + "ULS600", i, [](std::vector<uint64_t> && v) { learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 600>(v.begin(), v.end()); });
+      benchmark<uint64_t>(str_r + "ULS600", i, [](std::vector<uint64_t> && v) { ls_framework::sort<indexes::MinMaxIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 600>(v.begin(), v.end()); });
 #elif defined BLS
-      benchmark<uint64_t>(str_r + "BLS", i, [](std::vector<uint64_t> && v) { learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 600>(v.begin(), v.end()); });
+      benchmark<uint64_t>(str_r + "BLS", i, [](std::vector<uint64_t> && v) { ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 600>(v.begin(), v.end()); });
 #elif defined LS21
-      benchmark<uint64_t>(str_r + "LearnedSort_2_1", i, [](std::vector<uint64_t> && v) { learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 600>(v.begin(), v.end()); });
+      benchmark<uint64_t>(str_r + "LearnedSort_2_1", i, [](std::vector<uint64_t> && v) { ls_framework::sort<indexes::NewRmiIndex<vec_iter_u>, indexes::MinMaxIndex<vec_iter_u>, 600>(v.begin(), v.end()); });
 #elif defined RS
       benchmark<uint64_t>(str_r + "RadixSort", i, [](std::vector<uint64_t> && v) { radix_sort(v.begin(), v.end()); });
 #elif defined PDQ
@@ -217,13 +217,13 @@ int main(int argc, char ** argv) {
 #elif defined LS20
       benchmark<double>(str_r + "LearnedSort_2_0", i, [](std::vector<double> && v) { learned_sort::sort(v.begin(), v.end()); });
 #elif defined ULS1000
-      benchmark<double>(str_r + "ULS1000", i, [](std::vector<double> && v) { learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 1000>(v.begin(), v.end()); });
+      benchmark<double>(str_r + "ULS1000", i, [](std::vector<double> && v) { ls_framework::sort<indexes::MinMaxIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 1000>(v.begin(), v.end()); });
 #elif defined ULS600
-      benchmark<double>(str_r + "ULS600", i, [](std::vector<double> && v) { learned_sort_framework::sort<indexes::MinMaxIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 600>(v.begin(), v.end()); });
+      benchmark<double>(str_r + "ULS600", i, [](std::vector<double> && v) { ls_framework::sort<indexes::MinMaxIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 600>(v.begin(), v.end()); });
 #elif defined BLS
-      benchmark<double>(str_r + "BLS", i, [](std::vector<double> && v) { learned_sort_framework::sort<indexes::BalancedMinMaxIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 600>(v.begin(), v.end()); });
+      benchmark<double>(str_r + "BLS", i, [](std::vector<double> && v) { ls_framework::sort<indexes::BalancedMinMaxIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 600>(v.begin(), v.end()); });
 #elif defined LS21
-      benchmark<double>(str_r + "LearnedSort_2_1", i, [](std::vector<double> && v) { learned_sort_framework::sort<indexes::MyRmiIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 600>(v.begin(), v.end()); });
+      benchmark<double>(str_r + "LearnedSort_2_1", i, [](std::vector<double> && v) { ls_framework::sort<indexes::NewRmiIndex<vec_iter_d>, indexes::MinMaxIndex<vec_iter_d>, 600>(v.begin(), v.end()); });
 #elif defined RS
       benchmark<double>(str_r + "RadixSort", i, [](std::vector<double> && v) { radix_sort(v.begin(), v.end()); });
 #elif defined PDQ

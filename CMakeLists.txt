@@ -131,5 +131,5 @@ add_executable(${BENCH_REAL_stdsort} src/sort_real.cpp)
 target_compile_definitions(${BENCH_REAL_stdsort} PRIVATE STDSORT)
 
 # Example
-#set(EXAMPLE example)
-#add_executable(${EXAMPLE} example/example.cpp)
+set(EXAMPLE example)
+add_executable(${EXAMPLE} src/example.cpp)

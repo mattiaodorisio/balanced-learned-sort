@@ -1,9 +1,6 @@
 # Balanced Learned Sort
 
 This is the implementation of the Balanced Learned Sort, presented in the paper [Balanced Learned Sort: a new learned model for fast and balanced item bucketing](link).
-Here's the abstract:
-
-> Abstract
 
 ## Dependencies
 `cmake` to build the project, `python` and `numpy` to download/prepare the real-world datasets to reproduce the experiments
@@ -43,10 +40,6 @@ And use it:
 
 bls_framework::sort(begin, end);
 ```
-
-## Licensing
-
-Da decidere
 
 # Cite us
 

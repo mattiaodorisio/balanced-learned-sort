@@ -11,7 +11,7 @@ Two-layer RMI
 namespace indexes {
 
     template <typename RandomIt, typename count_type = uint, size_t n_leaves = 600>
-    class MyRmiIndex {
+    class NewRmiIndex {
         using value_type = typename std::iterator_traits<RandomIt>::value_type;
 
     protected:
@@ -26,7 +26,7 @@ namespace indexes {
         count_type max_index;
 
     public:
-        MyRmiIndex(const float sampling_rate = 0.01) : 
+        NewRmiIndex(const float sampling_rate = 0.01) : 
             sampling_offset(1. / sampling_rate) {}
         
         inline bool build(const RandomIt begin, const RandomIt end, count_type num_buckets) {
