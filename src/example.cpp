@@ -21,7 +21,7 @@ int main(int argc, char ** argv) {
     v[i] = dist(rnd);
   }
 
-  ls_framework::ls21<std::vector<double>::iterator>(v.begin(), v.end());
+  ls_framework::bls<std::vector<double>::iterator>(v.begin(), v.end());
 
   std::cout << (std::is_sorted(v.begin(), v.end()) ? "Sorted" : "Not Sorted") << std::endl;
 
