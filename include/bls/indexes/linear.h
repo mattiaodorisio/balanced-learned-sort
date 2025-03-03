@@ -3,8 +3,6 @@
 #include <iterator>
 #include <random>
 
-#include "../extern/ips4o/include/ips4o.hpp"
-
 #define RANDOM_SAMPLING
 
 namespace indexes {
@@ -64,7 +62,7 @@ namespace indexes {
                 }
             }
 #else
-            random_generator.seed(42); // helpful for the benchmarks
+            random_generator.seed(42); // helpful for the benchmarks repeatability
             selectSample(begin, end, n_samples);
 #endif
 
@@ -115,60 +113,6 @@ namespace indexes {
                                 
                 return true;
             }
-        }
-    };
-
-    template <typename RandomIt, typename count_type = uint>
-    class LinearRegressionIndex : public LinearModel<RandomIt, count_type> {
-        using value_type = typename std::iterator_traits<RandomIt>::value_type;
-
-    public:  
-        LinearRegressionIndex(const float sampling_rate = 0.01) : 
-            LinearModel<RandomIt, count_type>(sampling_rate) {}
-        
-        bool build(const RandomIt begin, const RandomIt end, const count_type n_buckets) {
-            LinearModel<RandomIt, count_type>::setMaxIndex(n_buckets);
-            size_t n_samples = LinearModel<RandomIt, count_type>::sample(begin, end);
-
-            // Prepare for the linear regression (linear regression needs a sorted sample)
-            ips4o::sort(begin, begin + n_samples);
-
-            // Regression
-            double _slope, _intercept;
-            std::tie(_slope, _intercept) = linear_regression_cdf(begin, begin + n_samples);
-
-            // Rescale
-            const double scale_factor = 1. * this->max_index / n_samples;
-            this->slope = _slope * scale_factor;
-            this->intercept = _intercept * scale_factor;
-
-            return true;
-        }
-
-    private:
-        std::tuple<double, double> linear_regression_cdf(const RandomIt first, const RandomIt last) {
-            // Function to perform linear regression
-            size_t sz = std::distance(first, last);
-
-            // Calculate the mean of x and y
-            double mean_x = std::accumulate(first, last, 0.) / sz;
-            double mean_y = (sz - 1.) / 2.;
-            
-            // Calculate the covariance and variance of x
-            double cov_xy = 0.;
-            double var_x = 0.;
-            for (size_t i = 0; i < sz; ++i) {
-                const double dist_x = first[i] - mean_x;
-                const double dist_y = i - mean_y;
-                cov_xy += dist_x * dist_y;
-                var_x += dist_x * dist_x;
-            }
-
-            // Calculate the slope and intercept of the regression line
-            const double slope = cov_xy / var_x;
-            const double intercept = mean_y - slope * mean_x;
-
-            return {slope, intercept};
         }
     };
 }

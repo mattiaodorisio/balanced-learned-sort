@@ -8,12 +8,18 @@
 namespace ls_framework {
 
     template <typename vec_iter>
-    auto bls = sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 600, vec_iter>;
+    auto bls(vec_iter begin, vec_iter end) {
+        return sort<indexes::BalancedMinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 600, vec_iter>(begin, end);
+    }
 
     template <typename vec_iter>
-    auto uls = sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000, vec_iter>;
+    auto uls(vec_iter begin, vec_iter end) {
+        return sort<indexes::MinMaxIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 1000, vec_iter>(begin, end);
+    }
 
     template <typename vec_iter>
-    auto ls21 = sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 500, vec_iter>;
+    auto ls21(vec_iter begin, vec_iter end) {
+        return sort<indexes::NewRmiIndex<vec_iter>, indexes::MinMaxIndex<vec_iter>, 500, vec_iter>(begin, end);
+    }
 
 }

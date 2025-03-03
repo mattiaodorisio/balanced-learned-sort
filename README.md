@@ -12,9 +12,10 @@ copy the `include` directory to your system's or project's include path.
 And use it (have a look also at `src/example.cpp` for a working example):
 
 ```C++
-#include "bls.hpp"
+#include "bls.h"
 
-ls_framework::sort(begin, end);
+std::vector<int> v = {5, 1, 2, 4, 3};
+ls_framework::bls(v.begin(), v.end());
 ```
 
 The reproduce the experiments, clone this repository and its dependencies:
