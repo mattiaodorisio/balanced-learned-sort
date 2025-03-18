@@ -1,6 +1,6 @@
 # Balanced Learned Sort
 
-This is the implementation of the Balanced Learned Sort, presented in the paper [Balanced Learned Sort: a new learned model for fast and balanced item bucketing](link).
+This is the implementation of the Balanced Learned Sort, presented in the paper [Fast, Robust, and Learned Distribution-Based Sorting](https://ieeexplore.ieee.org/document/10918649).
 
 ## Dependencies
 `cmake` to build the project, `python` and `numpy` to download/prepare the real-world datasets to reproduce the experiments.
